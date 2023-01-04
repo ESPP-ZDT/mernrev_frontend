@@ -53,17 +53,19 @@ export const listUserNotes = () => async (dispatch, getState) => {
 
 export const listAllNotes = () => async (dispatch) => {
   try {
+    console.log("##start: ")
     dispatch({
       type: NOTES_LIST_REQUEST,
     });
 
-    const { data } = await axios.get(`/api/notes`);
-
+    const { data } = await axios.get(`https://mernrev-api.onrender.com/api/notes`);
+    console.log("##data: ", data)
     dispatch({
       type: NOTES_LIST_SUCCESS,
       payload: data,
     });
   } catch (error) {
+    console.log("##error: ", error);
     const message =
       error.response && error.response.data.message
         ? error.response.data.message
