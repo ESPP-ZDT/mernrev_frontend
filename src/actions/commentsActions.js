@@ -13,6 +13,7 @@ import {
   COMMENTS_DELETE_FAIL,
 } from "../constants/commentConstants";
 import axios from "axios";
+import uri from '../uri';
 
 export const fetchComments = (noteId) => async (dispatch) => {
   try {
@@ -20,7 +21,7 @@ export const fetchComments = (noteId) => async (dispatch) => {
       type: COMMENTS_LIST_REQUEST,
     });
     //console.log(noteId)
-    const { data } = await axios.get(`api/comments/${noteId}`);
+    const { data } = await axios.get(uri+`/api/comments/${noteId}`);
     console.log("Fetched comments", data);
     dispatch({
       type: COMMENTS_LIST_SUCCESS,
@@ -56,8 +57,8 @@ export const createComment =
         },
       };
 
-      const { data } = await axios.post(
-        "api/comments/create",
+      const { data } = await axios.post(uri+
+        "/api/comments/create",
         {
           content,
           noteId,
@@ -98,8 +99,8 @@ export const updateComment =
         },
       };
 
-      const { data } = await axios.put(
-        `api/comments/${commentId}`,
+      const { data } = await axios.put(uri+
+        `/api/comments/${commentId}`,
         { content },
         config
       );
@@ -136,7 +137,7 @@ export const deleteComment = (commentId) => async (dispatch, getState) => {
       },
     };
 
-    await axios.delete(`api/comments/${commentId}`, config);
+    await axios.delete(uri+`/api/comments/${commentId}`, config);
 
     dispatch({
       type: COMMENTS_DELETE_SUCCESS,

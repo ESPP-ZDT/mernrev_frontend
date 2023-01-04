@@ -34,7 +34,7 @@ export const listUserNotes = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`${process.env.BACKEND_URI}/api/notes/usernotes`, config);
+    const { data } = await axios.get(uri+`/api/notes/usernotes`, config);
 
     dispatch({
       type: NOTES_LIST_SUCCESS,
@@ -99,7 +99,7 @@ export const createNoteAction =
       };
 
       const { data } = await axios.post(
-        `${process.env.BACKEND_URI}/api/notes/create`,
+        uri+`/api/notes/create`,
         { title, content, category },
         config
       );
@@ -139,7 +139,7 @@ export const updateNoteAction =
       };
 
       const { data } = await axios.put(
-        `${process.env.BACKEND_URI}/api/notes/${id}`,
+        uri+`/api/notes/${id}`,
         { title, content, category },
         config
       );
@@ -176,7 +176,7 @@ export const deleteNoteAction = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.delete(`${process.env.BACKEND_URI}/api/notes/${id}`, config);
+    const { data } = await axios.delete(uri+`/api/notes/${id}`, config);
 
     dispatch({
       type: NOTES_DELETE_SUCCESS,
@@ -214,7 +214,7 @@ export const likeNote = (noteId) => async (dispatch, getState) => {
 
     // Send a PUT request to the backend to update the likes of the specific note
     const res = await axios.patch(
-      `${process.env.BACKEND_URI}/api/notes/${noteId}/like`,
+      uri+`/api/notes/${noteId}/like`,
       { userId: data._id },
       config
     );
