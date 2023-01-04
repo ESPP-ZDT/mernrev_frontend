@@ -1,0 +1,36 @@
+.comment-list-card {
+    background-color: #f8f9fa; /* Add a background color to the Card element */
+    border: 5px solid #5a5959; /* Add a border to the Card element */
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* Add a box shadow to the Card element */
+  }
+  
+  .comment-list-header {
+    font-weight: bold; /* Make the header font bold */
+    padding: 0.75rem 1.25rem; /* Add padding to the header */
+    color: #c2c9d0; /* Change the header color */
+  }
+  
+  .comment-item {
+    cursor: pointer; /* Add a cursor to the comment items */
+    padding: 0.5rem 1rem; /* Add padding to the comment items */
+  }
+  
+  .comment-item:hover {
+    background-color: #3a4f64; /* Change the background color on hover */
+  }
+  
+  .comment-content {
+    font-size: 0.9rem; /* Make the content font slightly smaller */
+  }
+  
+  .comment-author {
+    font-size: 0.8rem; /* Make the author font slightly smaller */
+    color: #c6c6c6; /* Change the author color */
+  }
+  
+  .no-comments-found {
+    font-size: 1.1rem; /* Make the "No comments found" message larger */
+    font-weight: bold; /* Make the "No comments found" message bold */
+    color: #dc3545; /* Change the "No comments found" message color */
+  }
+  

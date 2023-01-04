@@ -1,0 +1,26 @@
+.blog-post {
+  animation: fadeIn 1s;
+  /*background-image: url(/path/to/image.jpg)*/
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.blog-post:hover {
+  background-color: rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+h1 {
+  color: rgb(232, 232, 232);
+  font-family: 'Roboto', sans-serif;
+  font-size: 32px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
