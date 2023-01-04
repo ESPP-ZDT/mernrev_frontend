@@ -54,7 +54,7 @@ export const listUserNotes = () => async (dispatch, getState) => {
 export const listAllNotes = () => async (dispatch) => {
   try {
     console.log("##start: ", );
-    const uri = process.env.BACKEND_URI;
+    const uri = "https://mernrev-api.onrender.com";
     dispatch({
       type: NOTES_LIST_REQUEST,
     });
