@@ -28,7 +28,7 @@ function BasicExample({ setSearch }) {
       <Container>
         <Navbar.Brand>
           {" "}
-          <Link to="/"><Button variant="secondary" size="xs">
+          <Link to="/"><Button variant="secondary" size="lg">
                   Revievlution
                 </Button></Link>{" "}
         </Navbar.Brand>
