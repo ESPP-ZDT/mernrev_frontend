@@ -16,6 +16,7 @@ import {
   LIKE_NOTE_FAIL,
 } from "../constants/noteConstants";
 import axios from "axios";
+import uri from '../uri';
 
 export const listUserNotes = () => async (dispatch, getState) => {
   try {
@@ -54,7 +55,7 @@ export const listUserNotes = () => async (dispatch, getState) => {
 export const listAllNotes = () => async (dispatch) => {
   try {
     console.log("##start: ", );
-    const uri = "https://mernrev-api.onrender.com";
+    // const uri = "https://mernrev-api.onrender.com";
     dispatch({
       type: NOTES_LIST_REQUEST,
     });
