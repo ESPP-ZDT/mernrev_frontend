@@ -43,7 +43,7 @@ function UpdateNoteScreen({}) {
         },
       };
 
-      const { data } = await axios.get(`/api/notes/${id}`, config);
+      const { data } = await axios.get(`${process.env.BACKEND_URI}/api/notes/${id}`, config);
 
       setTitle(data.title);
       setContent(data.content);

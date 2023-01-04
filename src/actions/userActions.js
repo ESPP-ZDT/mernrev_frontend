@@ -23,7 +23,7 @@ export const login = (email, password) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "/api/users/login",
+      `${process.env.BACKEND_URI}/api/users/login`,
       { email, password },
       config
     );
@@ -58,7 +58,7 @@ export const register = (name, email, password, pic) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "/api/users",
+      `${process.env.BACKEND_URI}/api/users`,
       { name, pic, email, password },
       config
     );
@@ -94,7 +94,7 @@ export const updateProfile = (user) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.post("/api/users/profile", user, config);
+    const { data } = await axios.post(`${process.env.BACKEND_URI}/api/users/profile`, user, config);
 
     dispatch({ type: USER_UPDATE_SUCCESS, payload: data });
 
