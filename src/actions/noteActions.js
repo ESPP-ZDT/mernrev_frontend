@@ -53,13 +53,13 @@ export const listUserNotes = () => async (dispatch, getState) => {
 
 export const listAllNotes = () => async (dispatch) => {
   try {
-    console.log("##start: ");
-    const uri = process.env.BACKEND_URI.toString();
+    console.log("##start: ", );
+    const uri = process.env.BACKEND_URI;
     dispatch({
       type: NOTES_LIST_REQUEST,
     });
     console.log("##URI: ", uri);
-    // .nev ==> const BACKEND_URI="https://mernrev-api.onrender.com";
+
     const { data } = await axios.get(uri+"/api/notes");
     console.log("##data: ", data)
     dispatch({
