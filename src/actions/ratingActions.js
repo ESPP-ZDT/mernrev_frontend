@@ -4,6 +4,7 @@ import {
     NOTES_RATE_SUCCESS,
   } from "../constants/noteConstants";
   import axios from "axios";
+  import uri from '../uri';
   
   export const rateNote = (noteId, rating) => async (dispatch, getState) => {
     try {
@@ -21,7 +22,7 @@ import {
         },
       };
   
-      const { data } = await axios.put(
+      const { data } = await axios.put(uri+
         `api/rating/${noteId}/rating`,
         {
           userId: userInfo._id,
