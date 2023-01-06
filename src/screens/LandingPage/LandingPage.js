@@ -10,6 +10,8 @@ import { deleteNoteAction, listAllNotes, likeNote } from "../../actions/noteActi
 import LikeButton from "./LikeButton";
 import Comments from "./Comments";
 import CommentList from "./CommentsList";
+import RatingForm from "../../components/RatingForm";
+import { rateNote } from "../../actions/ratingActions";
 
 const LandingPage = () => {
   const[isLike,setIsLike] = useState(false)
@@ -20,6 +22,7 @@ const LandingPage = () => {
 
   const noteList = useSelector((state) => state.noteList);
   const { loading, error, notes } = noteList;
+
 
   useEffect(() => {
     dispatch(listAllNotes());
@@ -40,6 +43,11 @@ const handleUnlike = () =>{
   setIsLike(false)
 }
 
+const ratingSubmit = async (noteId, rating) => {
+  dispatch(rateNote(noteId, rating));
+};
+
+
   return (
     <div>
       <MainScreen title={`Welcome`}>
@@ -47,6 +55,10 @@ const handleUnlike = () =>{
           <Card key={note._id}>
             <Card.Header style={{ display: "flex" }}>
               <span className="reviewtitle">{note.title}</span>
+              <RatingForm noteId={note._id} onSubmit={ratingSubmit} />
+
+              <h4>Mean Rating: {note.meanRating}</h4>
+
               <div>{note.likes.length} likes</div>
               <div><LikeButton
               isLike={isLike}
