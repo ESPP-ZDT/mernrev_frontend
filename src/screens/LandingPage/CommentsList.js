@@ -4,7 +4,8 @@ import { fetchComments } from "../../actions/commentsActions";
 import { Card, ListGroup } from "react-bootstrap";
 import "./CommentsList.css"; // Add this line to import the CSS file
 
-const CommentList = ({ noteId }) => {
+const CommentList = ({ noteId, search }) => {
+  
   const dispatch = useDispatch();
   const comments = useSelector((state) => state.commentsList.comments);
 
@@ -28,7 +29,12 @@ const CommentList = ({ noteId }) => {
       {comments && comments.length > 0 ? (
         <ListGroup variant="flush">
           {comments
-            .filter((comment) => comment.note.toString() === noteId.toString())
+            .filter((comment) => (
+              comment.note.toString() === noteId.toString() &&
+              (comment.content.toLowerCase().includes(search.toLowerCase()) || comment.name.toLowerCase().includes(search.toLowerCase()))
+            ))
+            
+
             .map((comment) => (
               <ListGroup.Item key={comment._id} className="comment-item"> {/* Add a class to the ListGroup.Item element */}
                 <p className="comment-content">{comment.content}</p> {/* Add a class to the content paragraph */}

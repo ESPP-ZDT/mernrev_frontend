@@ -19,7 +19,7 @@ const App = () => {
       <Header setSearch={setSearch} />
       <main>
         <Routes>
-          <Route path="/" element={<LandingPage />} exact />
+          <Route path="/" element={<LandingPage search={search}/>} exact />
           <Route path="/login" element={<LoginScreen />} exact />
           <Route path="/profile" element={<ProfileScreen />} />
           <Route path="/register" element={<RegisterScreen />} exact />

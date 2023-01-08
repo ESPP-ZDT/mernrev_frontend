@@ -13,9 +13,10 @@ import CommentList from "./CommentsList";
 import RatingForm from "../../components/RatingForm";
 import { rateNote } from "../../actions/ratingActions";
 
-const LandingPage = () => {
+const LandingPage = ({search}) => {
   const[isLike,setIsLike] = useState(false)
   const[loadLike,setLoadLike] = useState(false)
+  
   let navigate = useNavigate();
   const dispatch = useDispatch();
   // const {auth} = useSelector(state => state)
@@ -51,7 +52,14 @@ const ratingSubmit = async (noteId, rating) => {
   return (
     <div>
       <MainScreen title={`Welcome`}>
-        {notes?.map((note) => (
+        {notes?.filter(
+          filteredNote=>(
+            filteredNote.title.toLowerCase().includes(search.toLowerCase()),
+            filteredNote.content.toLowerCase().includes(search.toLowerCase())
+          
+            
+          )
+        ).map((note) => (
           <Card key={note._id}>
             <Card.Header style={{ display: "flex" }}>
               <span className="reviewtitle">{note.title}</span>
@@ -77,12 +85,13 @@ const ratingSubmit = async (noteId, rating) => {
                   Created on{" "}
                   <cite title="Source Title">
                     {note.createdAt.substring(0, 10)}
+                    <img src={note.pic}  className="profilePic" />
                   </cite>
                 </footer>
               </blockquote>
             </Card.Body>
             <div>
-            <CommentList noteId={note._id} />
+            <CommentList noteId={note._id}  search={search} />
             </div>
             <div>
             <Comments noteId={note._id} />
