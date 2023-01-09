@@ -81,7 +81,7 @@ export const listAllNotes = () => async (dispatch) => {
 };
 
 export const createNoteAction =
-  (title, content, category) => async (dispatch, getState) => {
+  (title, content, category, pic) => async (dispatch, getState) => {
     try {
       dispatch({
         type: NOTES_CREATE_REQUEST,
@@ -100,7 +100,7 @@ export const createNoteAction =
 
       const { data } = await axios.post(
         uri+`/api/notes/create`,
-        { title, content, category },
+        { title, content, category, pic},
         config
       );
 
@@ -121,7 +121,7 @@ export const createNoteAction =
   };
 
 export const updateNoteAction =
-  (id, title, content, category) => async (dispatch, getState) => {
+  (id, title, content, category, pic) => async (dispatch, getState) => {
     try {
       dispatch({
         type: NOTES_UPDATE_REQUEST,
@@ -140,7 +140,7 @@ export const updateNoteAction =
 
       const { data } = await axios.put(
         uri+`/api/notes/${id}`,
-        { title, content, category },
+        { title, content, category, pic },
         config
       );
 

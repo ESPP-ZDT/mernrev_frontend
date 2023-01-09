@@ -13,7 +13,10 @@ function CreateNoteScreen({}) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
-
+  const [pic, setPic] = useState(
+    "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
+  );
+  const [picMessage, setPicMessage] = useState("");
   const dispatch = useDispatch();
 
   const noteCreate = useSelector((state) => state.noteCreate);
@@ -29,7 +32,7 @@ function CreateNoteScreen({}) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(createNoteAction(title, content, category));
+    dispatch(createNoteAction(title, content, category, pic));
     if (!title || !content || !category) return;
 
     resetHandler();
@@ -37,6 +40,33 @@ function CreateNoteScreen({}) {
   };
 
   useEffect(() => {}, []);
+
+  const postDetails = (pics) => {
+    if (!pics) {
+      return setPicMessage("please select an image");
+    }
+    setPicMessage(null);
+
+    if (pics.type === "image/jpeg" || pics.type === "image/png") {
+      const data = new FormData();
+      data.append("file", pics);
+      data.append("upload_preset", "noteapp");
+      data.append("cloud_name", "dimxtmjra");
+      fetch("https://api.cloudinary.com/v1_1/dimxtmjra/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setPic(data.url.toString());
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      return setPicMessage("Please Select an Image");
+    }
+  };
 
   return (
     <MainScreen title="Create a Note">
@@ -83,12 +113,20 @@ function CreateNoteScreen({}) {
                 onChange={(e) => setCategory(e.target.value)}
               />
             </Form.Group>
+            <Form.Group controlId="formBasicProfilePicture">
+              <Form.Label>Profile Picture</Form.Label>
+              <Form.Control
+                type="file"
+                accept="image/*"
+                onChange={(e) => postDetails(e.target.files[0])}
+              />
+            </Form.Group>
             {loading && <Loading size={50} />}
             <Button type="submit" variant="primary">
-              Create Note
+              Create Review
             </Button>
             <Button className="mx-2" onClick={resetHandler} variant="danger">
-              Reset Feilds
+              Reset Fielslds
             </Button>
           </Form>
         </Card.Body>

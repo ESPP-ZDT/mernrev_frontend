@@ -12,10 +12,12 @@ import ReactMarkdown from "react-markdown";
 function UpdateNoteScreen({}) {
   const {id} = useParams();
   let navigate = useNavigate();
+  const [pic, setPic] = useState();
   const [title, setTitle] = useState();
   const [content, setContent] = useState();
   const [category, setCategory] = useState();
   const [date, setDate] = useState("");
+  const [picMessage, setPicMessage] = useState();
 
   const dispatch = useDispatch();
 
@@ -43,16 +45,41 @@ function UpdateNoteScreen({}) {
         },
       };
 
-      const { data } = await axios.get(`${process.env.BACKEND_URI}/api/notes/${id}`, config);
+      const { data } = await axios.get(`/api/notes/${id}`, config);
 
       setTitle(data.title);
       setContent(data.content);
       setCategory(data.category);
+      setPic(data.pic);
       setDate(data.updatedAt);
     };
 
     fetching();
   }, [id, date]);
+
+  const postDetails = (pics) => {
+    setPicMessage(null);
+    if (pics.type === "image/jpeg" || pics.type === "image/png") {
+      const data = new FormData();
+      data.append("file", pics);
+      data.append("upload_preset", "noteapp");
+      data.append("cloud_name", "dimxtmjra");
+      fetch("https://api.cloudinary.com/v1_1/dimxtmjra/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setPic(data.url.toString());
+          console.log(pic);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      return setPicMessage("Please Select an Image");
+    }
+  };
 
   const resetHandler = () => {
     setTitle("");
@@ -62,7 +89,7 @@ function UpdateNoteScreen({}) {
 
   const updateHandler = (e) => {
     e.preventDefault();
-    dispatch(updateNoteAction(id, title, content, category));
+    dispatch(updateNoteAction(id, title, content, category, pic));
     if (!title || !content || !category) return;
 
     resetHandler();
@@ -118,6 +145,14 @@ function UpdateNoteScreen({}) {
                 onChange={(e) => setCategory(e.target.value)}
               />
             </Form.Group>
+            <Form.Group controlId="pic">
+                <Form.Label>Change Picture</Form.Label>
+                <Form.Control
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => postDetails(e.target.files[0])}
+                />
+              </Form.Group>
             {loading && <Loading size={50} />}
             <Button variant="primary" type="submit">
               Update Note
